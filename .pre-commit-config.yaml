@@ -28,6 +28,6 @@ repos:
           - markdown
           - --lockfile=false
           - --output-file
-          - README.md
-          - .
+          - ../README.md
+          - eks-infra
         pass_filenames: false
