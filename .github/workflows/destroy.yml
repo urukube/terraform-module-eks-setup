@@ -1,0 +1,76 @@
+---
+name: infrastructure-destroy
+"on":
+  workflow_call:
+    inputs:
+      bucket_name:
+        description: "Name of the S3 bucket"
+        required: true
+        type: string
+      tfvar_file_path:
+        description: "Path to the tfvar file"
+        required: true
+        type: string
+      approvers:
+        description: "List of approvers"
+        required: true
+        type: string
+      master_s3_directory:
+        description: "Name of the master s3 directory"
+        required: true
+        type: string
+      component:
+        description: "Component to destroy (eks_infra)"
+        required: true
+        type: string
+      module_ref:
+        description: "Branch/tag/ref of terraform-module-eks-setup to use"
+        required: false
+        type: string
+        default: "main"
+
+permissions:
+  id-token: write
+  contents: read
+  issues: write
+
+jobs:
+  infrastructure-destroy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Checkout terraform-module-eks-setup
+        uses: actions/checkout@v4
+        with:
+          repository: urukube/terraform-module-eks-setup
+          path: terraform-module-eks-setup
+          ref: ${{ inputs.module_ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: us-east-1
+          role-to-assume: ${{ secrets.OC_ROLE_TO_ASSUME }}
+          role-session-name: githubactions-${{ github.run_id }}
+
+      - name: Setup Terraform
+        uses: ./terraform-module-eks-setup/.github/actions/terraform-setup
+
+      - name: Set environment variables for Terraform
+        run: |
+          echo "MASTER_S3_DIRECTORY=${{ inputs.master_s3_directory }}" >> $GITHUB_ENV
+          echo "TF_STATE_BUCKET=${{ inputs.bucket_name }}" >> $GITHUB_ENV
+
+      - name: Destroy eks_infra
+        if: inputs.component == 'eks_infra' || inputs.component == 'all'
+        uses: ./terraform-module-eks-setup/.github/actions/terraform-plan-destroy
+        with:
+          bucket_name: ${{ inputs.bucket_name }}
+          tfvar_file_path: ${{ inputs.tfvar_file_path }}
+          directory: ./terraform-module-eks-setup/eks-infra
+          approvers: ${{ inputs.approvers }}
+          component: eks_infra
+          master_s3_directory: ${{ inputs.master_s3_directory }}
