@@ -110,7 +110,7 @@ No providers.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_eks_infra"></a> [eks\_infra](#module\_eks\_infra) | git::https://github.com/urukube/terraform-module-eks.git | v1.1.0 |
+| <a name="module_eks_infra"></a> [eks\_infra](#module\_eks\_infra) | git::https://github.com/urukube/terraform-module-eks.git | v1.0.2 |
 | <a name="module_networking"></a> [networking](#module\_networking) | git::https://github.com/urukube/terraform-module-networking.git | v1.1.1 |
 
 ## Resources

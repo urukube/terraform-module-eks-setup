@@ -1,7 +1,7 @@
 module "eks_infra" {
   # checkov:skip=CKV_TF_1:Using version tags instead of commit hashes
   # checkov:skip=CKV_TF_2:Intentional floating major version tag — tracks latest v1.x.x release
-  source = "git::https://github.com/urukube/terraform-module-eks.git?ref=v1.1.0"
+  source = "git::https://github.com/urukube/terraform-module-eks.git?ref=v1.0.2"
 
   # Basic Cluster Info
   friendly_name              = var.friendly_name
