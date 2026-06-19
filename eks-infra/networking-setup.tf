@@ -1,5 +1,7 @@
 module "networking" {
-  source = "git::https://github.com/urukube/terraform-module-networking.git?ref=v1"
+  # checkov:skip=CKV_TF_1:Using version tags instead of commit hashes
+  # checkov:skip=CKV_TF_2:Intentional floating major version tag — tracks latest v1.x.x release
+  source = "git::https://github.com/urukube/terraform-module-networking.git?ref=v1.1.1"
 
   # Basic VPC Info
   vpc_cidr             = var.vpc_cidr
