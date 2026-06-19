@@ -58,7 +58,7 @@ runs:
 
     - name: Destroy Terraform
       if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
-      uses: ./terraform-module-eks-setup/.github/actions/destroy-tf
+      uses: ./orchestrator-plane-setup/.github/actions/destroy-tf
       with:
         bucket_name: ${{ inputs.bucket_name }}
         tfvar_file_path: ${{ inputs.tfvar_file_path }}

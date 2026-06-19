@@ -1,8 +1,8 @@
-# terraform-module-eks-setup
+# orchestrator-plane-setup
 
-Reusable Terraform root configuration that provisions a full EKS cluster environment — VPC, EKS cluster, IAM, and IRSA — in a single apply. It is called via `workflow_call` by repos that need to stand up a cluster.
+Provisions the **Orchestrator Cluster** for the urukube IDP — the platform control plane that runs Crossplane, ArgoCD, and Backstage. It wires together the networking and EKS modules to produce a full cluster environment (VPC, EKS, IAM, IRSA) in a single apply.
 
-Its primary caller is the **Orchestrator plane**, which uses it to provision the platform control plane cluster that runs Crossplane, ArgoCD, and Backstage. See [`CLUSTER-TOPOLOGY.md`](https://github.com/urukube/.github/blob/main/.github/CLUSTER-TOPOLOGY.md) for the full platform topology.
+See [`CLUSTER-TOPOLOGY.md`](https://github.com/urukube/.github/blob/main/.github/CLUSTER-TOPOLOGY.md) for the full platform topology and how the Orchestrator relates to BU workload clusters.
 
 ## Architecture
 
@@ -28,7 +28,7 @@ Update the `ref=` in `eks-infra/eks-infra-setup.tf` and `eks-infra/networking-se
 Caller repos invoke this as a reusable workflow:
 
 ```yaml
-uses: urukube/terraform-module-eks-setup/.github/workflows/main.yml@main
+uses: urukube/orchestrator-plane-setup/.github/workflows/main.yml@main
 with:
   bucket_name: my-tf-state-bucket
   master_s3_directory: my-cluster
@@ -85,7 +85,7 @@ State is stored in S3 with the key `{master_s3_directory}/eks_infra/terraform.tf
 To tear down the cluster, call the `destroy.yml` reusable workflow:
 
 ```yaml
-uses: urukube/terraform-module-eks-setup/.github/workflows/destroy.yml@main
+uses: urukube/orchestrator-plane-setup/.github/workflows/destroy.yml@main
 with:
   bucket_name: my-tf-state-bucket
   master_s3_directory: my-cluster

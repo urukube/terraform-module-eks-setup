@@ -38,7 +38,7 @@ runs:
 
     - name: Plan Terraform
       if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main'
-      uses: ./terraform-module-eks-setup/.github/actions/plan-tf
+      uses: ./orchestrator-plane-setup/.github/actions/plan-tf
       with:
         bucket_name: ${{ inputs.bucket_name }}
         tfvar_file_path: ${{ inputs.tfvar_file_path }}
@@ -56,7 +56,7 @@ runs:
 
     - name: Apply Terraform
       if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main'
-      uses: ./terraform-module-eks-setup/.github/actions/apply-tf
+      uses: ./orchestrator-plane-setup/.github/actions/apply-tf
       with:
         bucket_name: ${{ inputs.bucket_name }}
         tfvar_file_path: ${{ inputs.tfvar_file_path }}
