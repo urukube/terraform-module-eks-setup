@@ -230,7 +230,7 @@ variable "alb_ingress_cidr_blocks" {
 variable "cluster_kubernetes_version" {
   description = "Kubernetes <major>.<minor> version to use for the cluster"
   type        = string
-  default     = "1.33"
+  default     = "1.36"
 }
 
 variable "cluster_access_entries" {
