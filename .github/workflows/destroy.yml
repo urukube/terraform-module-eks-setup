@@ -20,7 +20,7 @@ name: infrastructure-destroy
         required: true
         type: string
       component:
-        description: "Component to destroy (eks_infra)"
+        description: "Component to destroy (eks_essential_addons, eks_infra, all)"
         required: true
         type: string
       module_ref:
@@ -63,6 +63,17 @@ jobs:
         run: |
           echo "MASTER_S3_DIRECTORY=${{ inputs.master_s3_directory }}" >> $GITHUB_ENV
           echo "TF_STATE_BUCKET=${{ inputs.bucket_name }}" >> $GITHUB_ENV
+
+      - name: Destroy eks_essential_addons
+        if: inputs.component == 'eks_essential_addons' || inputs.component == 'all'
+        uses: ./orchestrator-plane-setup/.github/actions/terraform-plan-destroy
+        with:
+          bucket_name: ${{ inputs.bucket_name }}
+          tfvar_file_path: ${{ inputs.tfvar_file_path }}
+          directory: ./orchestrator-plane-setup/eks-essential-addons
+          approvers: ${{ inputs.approvers }}
+          component: eks_essential_addons
+          master_s3_directory: ${{ inputs.master_s3_directory }}
 
       - name: Destroy eks_infra
         if: inputs.component == 'eks_infra' || inputs.component == 'all'

@@ -73,3 +73,13 @@ jobs:
           approvers: ${{ inputs.approvers }}
           component: eks_infra
           master_s3_directory: ${{ inputs.master_s3_directory }}
+
+      - name: eks_essential_addons
+        uses: ./orchestrator-plane-setup/.github/actions/terraform-plan-apply
+        with:
+          bucket_name: ${{ inputs.bucket_name }}
+          tfvar_file_path: ${{ inputs.tfvar_file_path }}
+          directory: ./orchestrator-plane-setup/eks-essential-addons
+          approvers: ${{ inputs.approvers }}
+          component: eks_essential_addons
+          master_s3_directory: ${{ inputs.master_s3_directory }}
