@@ -18,7 +18,7 @@ A single component is currently active:
 
 | Module | Source | Version |
 |---|---|---|
-| networking | `urukube/terraform-module-networking` | `v1.1.1` |
+| networking | `urukube/terraform-module-networking` | `v1.1.2` |
 | eks | `urukube/terraform-module-eks` | `v1.0.0` |
 
 Update the `ref=` in `eks-infra/eks-infra-setup.tf` and `eks-infra/networking-setup.tf` when consuming a new release.
@@ -111,7 +111,7 @@ No providers.
 | Name | Source | Version |
 |------|--------|---------|
 | <a name="module_eks_infra"></a> [eks\_infra](#module\_eks\_infra) | git::https://github.com/urukube/terraform-module-eks.git | v1.1.1 |
-| <a name="module_networking"></a> [networking](#module\_networking) | git::https://github.com/urukube/terraform-module-networking.git | v1.1.1 |
+| <a name="module_networking"></a> [networking](#module\_networking) | git::https://github.com/urukube/terraform-module-networking.git | v1.1.2 |
 
 ## Resources
 
