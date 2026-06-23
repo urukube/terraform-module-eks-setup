@@ -20,7 +20,7 @@ name: infrastructure-destroy
         required: true
         type: string
       component:
-        description: "Component to destroy (orchestrator_custom_addons, eks_essential_addons, eks_infra, all)"
+        description: "Component to destroy (argocd_configuration, orchestrator_custom_addons, eks_essential_addons, eks_infra, all)"
         required: true
         type: string
       module_ref:
@@ -63,6 +63,17 @@ jobs:
         run: |
           echo "MASTER_S3_DIRECTORY=${{ inputs.master_s3_directory }}" >> $GITHUB_ENV
           echo "TF_STATE_BUCKET=${{ inputs.bucket_name }}" >> $GITHUB_ENV
+
+      - name: Destroy argocd_configuration
+        if: inputs.component == 'argocd_configuration' || inputs.component == 'all'
+        uses: ./orchestrator-plane-setup/.github/actions/terraform-plan-destroy
+        with:
+          bucket_name: ${{ inputs.bucket_name }}
+          tfvar_file_path: ${{ inputs.tfvar_file_path }}
+          directory: ./orchestrator-plane-setup/argocd-configuration
+          approvers: ${{ inputs.approvers }}
+          component: argocd_configuration
+          master_s3_directory: ${{ inputs.master_s3_directory }}
 
       - name: Destroy orchestrator_custom_addons
         if: inputs.component == 'orchestrator_custom_addons' || inputs.component == 'all'
