@@ -1,5 +1,5 @@
 module "orchestrator_secret_management" {
-  source = "git::https://github.com/urukube/orchestrator-secret-management.git?ref=v1.1.0"
+  source = "git::https://github.com/urukube/orchestrator-secret-management.git?ref=v1.2.0"
 
   secretlist    = var.secretlist
   secret_values = var.secret_values
