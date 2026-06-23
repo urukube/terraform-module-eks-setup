@@ -67,7 +67,7 @@ jobs:
       - name: orchestrator_secret_management
         uses: ./orchestrator-plane-setup/.github/actions/terraform-plan-apply
         env:
-          TF_VAR_secret_values: '{"argocd_admin":"${{ secrets.ARGO_ADMIN_SECRET }}","github_token":"${{ secrets.GITHUB_TOKEN }}"}'
+          TF_VAR_secret_values: '{"argocd_admin":"${{ secrets.ARGO_ADMIN_SECRET }}","github_token":"${{ secrets.PLATFORM_GITHUB_PAT }}"}'
         with:
           bucket_name: ${{ inputs.bucket_name }}
           tfvar_file_path: ${{ inputs.tfvar_file_path }}
