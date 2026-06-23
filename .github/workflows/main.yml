@@ -64,6 +64,18 @@ jobs:
           echo "MASTER_S3_DIRECTORY=${{ inputs.master_s3_directory }}" >> $GITHUB_ENV
           echo "TF_STATE_BUCKET=${{ inputs.bucket_name }}" >> $GITHUB_ENV
 
+      - name: orchestrator_secret_management
+        uses: ./orchestrator-plane-setup/.github/actions/terraform-plan-apply
+        env:
+          TF_VAR_secret_values: '{"argocd_admin":"${{ secrets.ARGO_ADMIN_SECRET }}","github_token":"${{ secrets.GITHUB_TOKEN }}"}'
+        with:
+          bucket_name: ${{ inputs.bucket_name }}
+          tfvar_file_path: ${{ inputs.tfvar_file_path }}
+          directory: ./orchestrator-plane-setup/orchestrator-secret-management
+          approvers: ${{ inputs.approvers }}
+          component: orchestrator_secret_management
+          master_s3_directory: ${{ inputs.master_s3_directory }}
+
       - name: eks_infra
         uses: ./orchestrator-plane-setup/.github/actions/terraform-plan-apply
         with:
@@ -82,18 +94,6 @@ jobs:
           directory: ./orchestrator-plane-setup/eks-essential-addons
           approvers: ${{ inputs.approvers }}
           component: eks_essential_addons
-          master_s3_directory: ${{ inputs.master_s3_directory }}
-
-      - name: orchestrator_secret_management
-        uses: ./orchestrator-plane-setup/.github/actions/terraform-plan-apply
-        env:
-          TF_VAR_secret_values: '{"argocd_admin":"${{ secrets.ARGO_ADMIN_SECRET }}","github_token":"${{ secrets.GITHUB_TOKEN }}"}'
-        with:
-          bucket_name: ${{ inputs.bucket_name }}
-          tfvar_file_path: ${{ inputs.tfvar_file_path }}
-          directory: ./orchestrator-plane-setup/orchestrator-secret-management
-          approvers: ${{ inputs.approvers }}
-          component: orchestrator_secret_management
           master_s3_directory: ${{ inputs.master_s3_directory }}
 
       - name: orchestrator_custom_addons

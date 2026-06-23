@@ -75,17 +75,6 @@ jobs:
           component: argocd_configuration
           master_s3_directory: ${{ inputs.master_s3_directory }}
 
-      - name: Destroy orchestrator_secret_management
-        if: inputs.component == 'orchestrator_secret_management' || inputs.component == 'all'
-        uses: ./orchestrator-plane-setup/.github/actions/terraform-plan-destroy
-        with:
-          bucket_name: ${{ inputs.bucket_name }}
-          tfvar_file_path: ${{ inputs.tfvar_file_path }}
-          directory: ./orchestrator-plane-setup/orchestrator-secret-management
-          approvers: ${{ inputs.approvers }}
-          component: orchestrator_secret_management
-          master_s3_directory: ${{ inputs.master_s3_directory }}
-
       - name: Destroy orchestrator_custom_addons
         if: inputs.component == 'orchestrator_custom_addons' || inputs.component == 'all'
         uses: ./orchestrator-plane-setup/.github/actions/terraform-plan-destroy
@@ -117,4 +106,15 @@ jobs:
           directory: ./orchestrator-plane-setup/eks-infra
           approvers: ${{ inputs.approvers }}
           component: eks_infra
+          master_s3_directory: ${{ inputs.master_s3_directory }}
+
+      - name: Destroy orchestrator_secret_management
+        if: inputs.component == 'orchestrator_secret_management' || inputs.component == 'all'
+        uses: ./orchestrator-plane-setup/.github/actions/terraform-plan-destroy
+        with:
+          bucket_name: ${{ inputs.bucket_name }}
+          tfvar_file_path: ${{ inputs.tfvar_file_path }}
+          directory: ./orchestrator-plane-setup/orchestrator-secret-management
+          approvers: ${{ inputs.approvers }}
+          component: orchestrator_secret_management
           master_s3_directory: ${{ inputs.master_s3_directory }}
