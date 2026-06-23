@@ -106,6 +106,16 @@ jobs:
           component: orchestrator_custom_addons
           master_s3_directory: ${{ inputs.master_s3_directory }}
 
+      - name: eso_configuration
+        uses: ./orchestrator-plane-setup/.github/actions/terraform-plan-apply
+        with:
+          bucket_name: ${{ inputs.bucket_name }}
+          tfvar_file_path: ${{ inputs.tfvar_file_path }}
+          directory: ./orchestrator-plane-setup/eso-configuration
+          approvers: ${{ inputs.approvers }}
+          component: eso_configuration
+          master_s3_directory: ${{ inputs.master_s3_directory }}
+
       - name: argocd_configuration
         uses: ./orchestrator-plane-setup/.github/actions/terraform-plan-apply
         with:
