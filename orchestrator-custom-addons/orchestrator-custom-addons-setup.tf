@@ -1,7 +1,7 @@
 module "orchestrator_custom_addons" {
   # checkov:skip=CKV_TF_1:Using version tags instead of commit hashes
   # checkov:skip=CKV_TF_2:Intentional floating major version tag — tracks latest v1.x.x release
-  source = "git::https://github.com/urukube/orchestrator-custom-addons.git?ref=v1.1.9"
+  source = "git::https://github.com/urukube/orchestrator-custom-addons.git?ref=v1.1.10"
 
   # Org info
   env    = var.env
