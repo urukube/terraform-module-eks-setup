@@ -139,7 +139,7 @@ variable "crossplane_provider_aws_version" {
 variable "komoplane_version" {
   description = "Version of the Komoplane Helm chart"
   type        = string
-  default     = "0.3.3"
+  default     = "0.1.8"
 }
 
 ##################################################
