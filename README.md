@@ -27,7 +27,7 @@ Two components are currently active:
 |---|---|---|
 | networking | `urukube/terraform-module-networking` | `v1.1.2` |
 | eks | `urukube/terraform-module-eks` | `v1.2.0` |
-| orchestrator-custom-addons | `urukube/orchestrator-custom-addons` | `v1.4.0` |
+| orchestrator-custom-addons | `urukube/orchestrator-custom-addons` | `v1.4.1` |
 
 Update the `ref=` in the relevant setup file when consuming a new release.
 
